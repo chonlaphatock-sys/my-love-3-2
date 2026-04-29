@@ -1,85 +1,129 @@
-nction handleYesClick() {
-// 🤖 ระบบตอบอัจฉริยะ
+<script>
+// ==========================
+// 🔥 VERSION CHECK (ขึ้นก่อน)
+// ==========================
+(async function checkForUpdates() {
+    const currentVersion = "1.0";
+    const versionUrl = "https://raw.githubusercontent.com/ivysone/Will-you-be-my-Valentine-/main/version.json";
 
-const loveTexts = [
-    "เค้าชอบแกมากขึ้นทุกวันเลยนะ 😳",
-    "ถึงเค้าจะทำตัวไม่ดีบ้าง แต่เค้าไม่เคยอยากหายไปจากแกเลย",
-    "อยู่กับแกแล้วมันสบายใจแปลก ๆ 😊",
-    "เค้าอาจไม่ดีพอ แต่เค้าจะพยายามเพื่อแกนะ",
-    "ขอบคุณที่ยังอยู่คุยกับเค้านะ 💖"
-];
-// =========================
+    try {
+        const response = await fetch(versionUrl);
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (currentVersion !== data.version) {
+            alert(data.updateMessage);
+        } else {
+            console.log("You are using the latest version.");
+        }
+    } catch (error) {
+        console.error("Error checking updates:", error);
+    }
+})();
+
+
+// ==========================
+// 💬 CHAT + GAME (ของเดิม)
+// ==========================
+
+function handleYesStart() {
+    startChat();
+}
+
+function handleNoClick() {
+    alert("เค้าคิดถึงแกนะ 🥺");
+}
+
+// เริ่มแชท
+function startChat() {
+    document.body.innerHTML = `
+        <div style="max-width:420px;margin:40px auto;font-family:sans-serif;">
+            <h2>💬 แชทของเรา</h2>
+            <div id="chatBox" style="border:1px solid #ddd;height:320px;overflow-y:auto;padding:10px;margin-bottom:10px;border-radius:10px;"></div>
+            <input id="userInput" placeholder="พิมพ์ข้อความ..." style="width:70%;padding:8px;">
+            <button onclick="sendMessage()">ส่ง</button>
+        </div>
+    `;
+
+    addMessage("เค้า", "วันนี้เป็นยังไงบ้างง 😊");
+}
+
+// เพิ่มข้อความ
+function addMessage(sender, text) {
+    const chatBox = document.getElementById("chatBox");
+    const msg = document.createElement("div");
+    msg.innerHTML = `<b>${sender}:</b> ${text}`;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// ส่งข้อความ
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage("แก", text);
+    input.value = "";
+
+    setTimeout(() => smartReply(text), 700);
+}
+
+// 🤖 AI ตอบ
 function smartReply(text) {
+    let lower = text.toLowerCase();
     let res = "";
-    let lower = text.trim().toLowerCase();
 
-    // อารมณ์
-    if (lower.includes("ดี")) {
-        res = "ดีเลยย เค้าดีใจด้วยนะ 💖 แล้วไปทำอะไรมา?";
-    } 
-    else if (lower.includes("เหนื่อย")) {
-        res = "เหนื่อยก็พักบ้างนะ เค้าเป็นห่วง 🥺";
-    } 
-    else if (lower.includes("เศร้า") || lower.includes("แย่")) {
-        res = "โอ๋ ๆ นะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
-    }
-
-    // กิจกรรม
-    else if (lower.includes("กิน") || lower.includes("ข้าว")) {
-        res = "กินอะไรมาา 😋 น่ากินมั้ยอะ";
-    } 
-    else if (lower.includes("เรียน") || lower.includes("งาน")) {
-        res = "เก่งมากเลยนะ สู้ ๆ 💪 เค้าคอยเป็นกำลังใจให้";
-    } 
-    else if (lower.includes("นอน")) {
-        res = "ง่วงแล้วหรอ 😴 ฝันถึงเค้าด้วยนะ";
-    }
-
-    // ความรู้สึก
-    else if (lower.includes("คิดถึง")) {
-        res = "เค้าก็คิดถึงแกเหมือนกันนะ 😳💖";
-    } 
-    else if (lower.includes("รัก")) {
-        res = "พูดแบบนี้เขินนะ 😳 เค้าก็รักแกนะ";
-    }
-
-    // คำถาม
-    else if (lower.includes("ทำอะไร")) {
-        res = "กำลังคิดถึงแกอยู่นี่แหละ 😆";
-    }
-
-    // fallback
-    else {
-        const randomReplies = [
-            "หืมมม 😳 เล่าอีกหน่อยดิ",
-            "เค้าฟังอยู่นะ 😊",
-            "แล้วต่ออะ?",
-            "จริงดิ 😯",
-            "อยากรู้มากกว่านี้อะ 🥺",
-            "แกน่ารักจัง 💖"
-        ];
-        res = randomReplies[Math.floor(Math.random() * randomReplies.length)];
-    }
+    if (lower.includes("ดี")) res = "ดีเลยย 😊";
+    else if (lower.includes("เหนื่อย")) res = "พักหน่อยนะ 🥺";
+    else if (lower.includes("เศร้า")) res = "โอ๋ ๆ 🤍";
+    else if (lower.includes("คิดถึง")) res = "เค้าก็คิดถึง 💖";
+    else if (lower.includes("รัก")) res = "เขินนะ 😳";
+    else res = "เค้าฟังอยู่นะ 😊";
 
     addMessage("เค้า", res);
 
-    // 🔥 follow up
     setTimeout(() => {
-        const followUps = [
-            "แล้ววันนี้มีอะไรทำให้ยิ้มบ้างมั้ย 😊",
-            "คิดถึงเค้าบ้างปะ 😏",
-            "อยากเจอกันมั้ย 🥺",
-            "วันนี้เหนื่อยมั้ย เค้าเป็นห่วงนะ",
-            "เค้าสำคัญกับแกมั้ย 💖"
-        ];
+        addMessage("เค้า", "แล้ววันนี้เป็นไงบ้างง 😊");
+    }, 1500);
 
-        addMessage("เค้า", followUps[Math.floor(Math.random() * followUps.length)]);
-    }, 2000);
-
-    // 💖 มุกพิเศษ
     setTimeout(() => {
         if (Math.random() < 0.3) {
-            addMessage("เค้า", "เอาจริงนะ...เค้าชอบแกอะ 😳");
+            addMessage("เค้า", "เอาจริงนะ...เค้าชอบแก 😳");
         }
-    }, 4000);
+    }, 3000);
 }
+
+
+// ==========================
+// ❌ NO BUTTON GAME
+// ==========================
+const messages = [
+    "แน่ใจนะ?",
+    "คิดอีกทีมั้ย?",
+    "เค้าขอร้องง 🥺",
+    "จริงเหรอ?",
+    "ใจร้ายอะ 😢",
+    "ล้อเล่นน่า กดตกลงเถอะ ❤️"
+];
+
+let messageIndex = 0;
+
+function handleNoClick() {
+    const noButton = document.querySelector('.no-button');
+    const yesButton = document.querySelector('.yes-button');
+
+    noButton.textContent = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+
+    const size = parseFloat(window.getComputedStyle(yesButton).fontSize || 16);
+    yesButton.style.fontSize = `${size * 1.3}px`;
+}
+
+// ปุ่ม Yes ไปหน้าใหม่
+function handleYesClick() {
+    window.location.href = "yes_page.html";
+}
+
+</script>
