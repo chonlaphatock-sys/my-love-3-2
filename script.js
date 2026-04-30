@@ -68,10 +68,7 @@ function smartReply(text) {
     }
 
     else if (lower.includes("กิน") || lower.includes("ข้าว")) {
-        res = randomPick([
-            "กินอะไรมาา 😋",
-            "อร่อยมั้ยย เค้าอยากกินด้วย 🤤"
-        ]);
+        res = "กินอะไรมาา 😋";
     }
 
     else if (lower.includes("หิว")) {
