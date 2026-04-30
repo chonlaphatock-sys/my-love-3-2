@@ -53,10 +53,22 @@ function smartReply(text) {
             "เค้าขอโทษนะ ง้อได้มั้ย 💖",
             "แงง เสียจายเค้าผิดไปแย้ว🤍"
         ]);
+         }
+
+    else if (lower.includes("งอน")) {
+        res = "ดีกานน้าหนูพรีมม🤍";
+    }
+
+    else if (lower.includes("โกรธ")) {
+        res = "อย่าโกรธเค้าเลยน้าา แง 🥺";
+    }
+
+    else if (lower.includes("ไม่คุย")) {
+        res = "อย่าพึ่งไปไหนเยย อยู่กับเค้าก่อน 🥺";
     }
 
     else if (lower.includes("เศร้า") || lower.includes("แย่")) {
-        res = "โอ๋ ๆ นะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
+        res = "โอ๋ๆ นะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
     }
 
     else if (lower.includes("เหนื่อย")) {
