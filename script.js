@@ -47,14 +47,16 @@ function smartReply(text) {
     let lower = text.toLowerCase();
     let res = "";
 
-          if (lower.includes(/งอน|โกรธ|ไม่คุย/)) {
-        res =  "โอ๋ๆนะ ดีกานน้า 🥺",
-        "เค้าขอโทษนะ ง้อได้มั้ย 💖",
-        "แงง เสียจายเค้าผิดไปแย้ว🤍";
-}
+    if (lower.includes("งอน") || lower.includes("โกรธ") || lower.includes("ไม่คุย")) {
+        res = randomPick([
+            "โอ๋ๆนะ ดีกานน้า 🥺",
+            "เค้าขอโทษนะ ง้อได้มั้ย 💖",
+            "แงง เสียจายเค้าผิดไปแย้ว🤍"
+        ]);
+    }
 
     else if (lower.includes("เศร้า") || lower.includes("แย่")) {
-        res = "โอ๋ๆนะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
+        res = "โอ๋ ๆ นะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
     }
 
     else if (lower.includes("เหนื่อย")) {
@@ -81,7 +83,7 @@ function smartReply(text) {
     }
 
     else if (lower.includes("เรียน") || lower.includes("งาน")) {
-        res = "สู้ๆนะ เก่งมากเยยตัวเล็ก 💪";
+        res = "สู้ ๆ นะ เก่งมาก 💪";
     }
 
     else if (lower.includes("ง่วง")) {
@@ -119,33 +121,23 @@ function smartReply(text) {
     else if (lower.includes("ไม่")) {
         res = "ทำไมม เป็นอารายมั้ยหนะ 🥹";
     }
+
     else {
-        const randomReplies = [
-            "หืมมม 😳 เล่าอีกหน่อยดิ",
+        res = randomPick([
+            "หืมมม 😳 เล่าอีกหน่อยน้าา",
             "เค้าฟังอยู่นะ 😊",
             "จริงดิ 😯",
-            "อยากรู้มากกว่านี้ 🥺",
-            "แกน่ารักจัง 💖"
-        ];
-        res = randomReplies[Math.floor(Math.random() * randomReplies.length)];
+            "แล้วต่อยังไงง 🫣"
+        ]);
     }
 
     addMessage("เค้า", res);
 
     setTimeout(() => {
-        const followUps = [
-            "แล้ววันนี้มีอะไรทำให้ยิ้มบ้างมั้ย 😊",
-            "คิดถึงเค้าบ้างปะ 😏",
-            "อยากเจอกันมั้ย 🥺",
-            "วันนี้เหนื่อยมั้ย เค้าเป็นห่วงนะ",
-            "เค้าสำคัญกับแกมั้ย 💖"
-        ];
-        addMessage("เค้า", followUps[Math.floor(Math.random() * followUps.length)]);
-    }, 2000);
-
-    setTimeout(() => {
-        if (Math.random() < 0.3) {
-            addMessage("เค้า", "เอาจริงนะ...เค้าชอบแกอะ 😳");
-        }
-    }, 4000);
+        addMessage("เค้า", randomPick([
+            "แกทำอารายอยู่อ่ะ 🫣",
+            "คิดถึงเค้ามั้ยย 🤍",
+            "น่ารักจางงเยยย 🥺"
+        ]));
+    }, 15000);
 }
