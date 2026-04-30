@@ -44,28 +44,63 @@ function sendMessage() {
 
 // 🤖 ระบบตอบ
 function smartReply(text) {
-    let res = "";
     let lower = text.toLowerCase();
+    let res = "";
 
-    if (lower.includes("ดี")) {
-        res = "ดีเลยย เค้าดีใจด้วยนะ 💖 แล้วไปทำอะไรมา?";
-    } else if (lower.includes("เหนื่อย")) {
+          if (lower.includes(/งอน|โกรธ|ไม่คุย/)) {
+        res =  "โอ๋ๆนะ ดีกานน้า 🥺",
+        "เค้าขอโทษนะ ง้อได้มั้ย 💖",
+        "แงง เสียจายเค้าผิดไปแย้ว🤍";
+}
+
+    else if (lower.includes("เศร้า") || lower.includes("แย่")) {
+        res = "โอ๋ๆนะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
+    }
+
+    else if (lower.includes("เหนื่อย")) {
         res = "เหนื่อยก็พักบ้างนะ เค้าเป็นห่วง 🥺";
-    } else if (lower.includes("เศร้า") || lower.includes("แย่")) {
-        res = "โอ๋ ๆ นะ มากอดที 🤍 เค้าอยู่ตรงนี้นะ";
+    }
+
+    else if (lower.includes("ดี")) {
+        res = "ดีเลยย เค้าดีใจด้วยนะ 💖 แล้วไปทำอะไรมา?";
     }
 
     else if (lower.includes("กิน") || lower.includes("ข้าว")) {
-        res = "กินอะไรมาา 😋";
-    } else if (lower.includes("เรียน") || lower.includes("งาน")) {
-        res = "สู้ ๆ นะ เก่งมาก 💪";
-    } else if (lower.includes("นอน")) {
-        res = "ฝันดีนะ 😴";
+        res = randomPick([
+            "กินอะไรมาา 😋",
+            "อร่อยมั้ยย เค้าอยากกินด้วย 🤤"
+        ]);
+    }
+
+    else if (lower.includes("หิว")) {
+        res = "หาอะไรหม่ำๆได้แย้ววเจ้าหนูน้อย 🍽️";
+    }
+
+    else if (lower.includes("อร่อย")) {
+        res = "เค้าขอกินด้วยได้มั้ย 😋";
+    }
+
+    else if (lower.includes("เรียน") || lower.includes("งาน")) {
+        res = "สู้ๆนะ เก่งมากเยยตัวเล็ก 💪";
+    }
+
+    else if (lower.includes("ง่วง")) {
+        res = "อยากนอนมั้ยค้าบบ 😴";
+    }
+
+    else if (lower.includes("นอน")) {
+        res = "ฝันดีนะ 🌙";
+    }
+
+    else if (lower.includes("ตื่น")) {
+        res = "ขอให้เป็นวันที่ดีนะ ☀️";
     }
 
     else if (lower.includes("คิดถึง")) {
         res = "เค้าก็คิดถึงแกเหมือนกันนะ 😳💖";
-    } else if (lower.includes("รัก")) {
+    }
+
+    else if (lower.includes("รัก")) {
         res = "เขินเลย 😳 เค้าก็รักแกนะ";
     }
 
@@ -73,6 +108,17 @@ function smartReply(text) {
         res = "กำลังคิดถึงแกอยู่นี่แหละ 😆";
     }
 
+    else if (lower.includes("ไม่รู้")) {
+        res = "แงง รู้หน่อยน้าา 🥺";
+    }
+
+    else if (lower.includes("ไม่บอก")) {
+        res = "บอกเค้าหน่อยยน้าค้าบบ 🥺";
+    }
+
+    else if (lower.includes("ไม่")) {
+        res = "ทำไมม เป็นอารายมั้ยหนะ 🥹";
+    }
     else {
         const randomReplies = [
             "หืมมม 😳 เล่าอีกหน่อยดิ",
